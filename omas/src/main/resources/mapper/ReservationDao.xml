@@ -37,4 +37,14 @@
 			ON project.client_id = client.client_id
 		WHERE reservation.seat_id = #{seat_id};
     </select>
+
+    <!-- insertReservation --> 
+
+    <insert id="insertReservation" parameterType="com.omasystem.omas.Model.ReservationInputBodyModel">
+        INSERT INTO tbl_reservation
+            (emp_id, seat_id, proj_id, start_date, end_date, note)
+        VALUES
+            (#{emp_id}, #{seat_id}, #{proj_id}, #{start_date}, #{end_date}, #{note});
+    </insert>
+
 </mapper>
