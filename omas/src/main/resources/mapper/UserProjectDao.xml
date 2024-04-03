@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper for UserProjectDao   -->
+<mapper namespace="com.omasystem.omas.Dao.UserProjectDao">
+
+    <!-- getProjectInvolvedOfUser --> 
+
+    <select id="getProjectInvolvedOfUser" parameterType="java.lang.String" resultType="com.omasystem.omas.Model.UserProjectModel">
+        SELECT 
+            * 
+        FROM 
+            tbl_user_project
+        WHERE
+            emp_id = #{emp_id} 
+    </select>
+</mapper>
