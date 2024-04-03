@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper for PrincipalDao   -->
+<mapper namespace="com.omasystem.omas.Dao.PrincipalDao">
+
+
+    <!-- getPrincipal --> 
+
+    <select id="getPrincipal" parameterType="java.lang.String" resultType="com.omasystem.omas.Model.PrincipalModel">
+        SELECT 
+            account.emp_id AS emp_id,
+            account.username AS username,
+            pi.fname AS first_name,
+            pi.mname AS middle_name,
+            pi.lname AS last_name,
+            position.position_name AS position_name,
+            project.proj_name AS project_name,
+            account.img_src AS img_src
+        FROM
+            tbl_user AS account
+        INNER JOIN 
+            tbl_personal_info AS pi
+            ON account.emp_id = pi.emp_id
+        LEFT JOIN 
+            tbl_position_mst AS position
+            ON account.position_id = position.position_id
+        INNER JOIN 
+            tbl_user_project AS up
+            ON account.emp_id = up.emp_id
+        LEFT JOIN
+            tbl_project_mst AS project
+            ON up.proj_id = project.proj_id
+        WHERE
+            account.username = #{session};
+    </select>    
+</mapper>
