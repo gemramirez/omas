@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.omasystem.omas.Service.PrincipalService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/api/principal")
+@RequiredArgsConstructor
 public class PrincipalRestController {
     @Autowired
     private PrincipalService principalService;
