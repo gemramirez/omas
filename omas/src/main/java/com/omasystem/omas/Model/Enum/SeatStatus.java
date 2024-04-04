@@ -1,4 +1,4 @@
-package com.omasystem.omas.Entity.Enum;
+package com.omasystem.omas.Model.Enum;
 
 public enum SeatStatus {
     available,

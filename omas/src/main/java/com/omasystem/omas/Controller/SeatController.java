@@ -3,7 +3,7 @@ package com.omasystem.omas.Controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.omasystem.omas.Entity.Seat;
+import com.omasystem.omas.Model.SeatModel;
 import com.omasystem.omas.Service.SeatService;
 
 
@@ -23,7 +23,7 @@ public class SeatController {
     private SeatService seatService;
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Seat>> getAllSeats() {
+    public ResponseEntity<List<SeatModel>> getAllSeats() {
         return seatService.getAllSeats();
     }
 }

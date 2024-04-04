@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.omasystem.omas.Dao.SeatDao;
-import com.omasystem.omas.Entity.Seat;
+import com.omasystem.omas.Model.SeatModel;
 
 
 
@@ -18,9 +18,9 @@ public class SeatService {
     @Autowired
         SeatDao seatDao;
         
-    public ResponseEntity<List<Seat>> getAllSeats(){ 
+    public ResponseEntity<List<SeatModel>> getAllSeats(){ 
         try {
-            List<Seat> seats = seatDao.getAllSeats();
+            List<SeatModel> seats = seatDao.getAllSeats();
             if (seats != null && !seats.isEmpty()) {
                 return ResponseEntity.ok(seats);
             } else {
