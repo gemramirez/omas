@@ -11,19 +11,9 @@
             reservation.seat_id AS seat_id,
             reservation.start_date AS start_date,
             reservation.end_date AS end_date,
-            reservation.note AS note,
-            pi.fname AS first_name,
-            pi.mname AS middle_name,
-            pi.lname AS last_name,
-            client.client_sh_name AS client_sn
+            reservation.note AS note
         FROM
             tbl_reservation AS reservation
-        INNER JOIN
-            tbl_user AS user ON reservation.emp_id = user.emp_id
-        INNER JOIN
-            tbl_personal_info as pi ON user.user_id = pi.user_id
-        INNER JOIN
-            tbl_clients_mst AS client ON reservation.client_id = client.client_id
         WHERE 
             reservation.start_date &lt;= #{end_date} 
             AND reservation.end_date &gt;= #{start_date}
