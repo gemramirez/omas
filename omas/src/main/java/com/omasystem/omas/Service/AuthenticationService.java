@@ -49,7 +49,7 @@ public class AuthenticationService {
                 .fname(request.getFirstname())
                 .lname(request.getLastname())
                 .mname(request.getMiddlename())
-                .email("Sample2@gmail.com")
+                .email(request.getEmail())
                 .build();
 
         if(personal_info != null)
