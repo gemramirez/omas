@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper for NoteDao   -->
+<mapper namespace="com.omasystem.omas.Dao.NoteDao">
+
+    <!-- getAllNote --> 
+
+    <select id="getAllNote" resultType="com.omasystem.omas.Model.NoteModel">
+        SELECT 
+            account.emp_id AS emp_id,
+            account.username AS username,
+            pi.fname AS first_name,
+            pi.mname AS middle_name,
+            pi.lname AS last_name,
+            reservation.note AS note,
+            reservation.reg_date AS noted_at,
+            reservation.seat_id AS seat_id
+        FROM 
+            tbl_reservation AS reservation
+        INNER JOIN
+            tbl_user AS account
+            ON reservation.emp_id = account.emp_id
+        LEFT JOIN
+            tbl_personal_info AS pi
+            ON reservation.emp_id = pi.emp_id
+    </select>
+    
+</mapper>
