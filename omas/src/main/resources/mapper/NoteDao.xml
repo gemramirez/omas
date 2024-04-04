@@ -25,6 +25,7 @@
         LEFT JOIN
             tbl_personal_info AS pi
             ON reservation.emp_id = pi.emp_id
+        ORDER BY reservation.reg_date DESC
     </select>
     
 </mapper>
