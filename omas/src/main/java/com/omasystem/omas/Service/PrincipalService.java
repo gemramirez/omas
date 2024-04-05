@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.omasystem.omas.Dao.PrincipalDao;
@@ -14,16 +16,15 @@ public class PrincipalService {
     @Autowired
     private PrincipalDao principalDao;
 
-    //** sample session until the implementation of spring security session */
-    public static final String SESSION = "rgalpo";
-
     Map<String, Object> response = new HashMap<String, Object>();
 
     public Map<String, Object> getPrincipalInfo()
     {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication != null && authentication.isAuthenticated())
         try {
-            PrincipalModel principal = principalDao.getPrincipal(SESSION);
-            response.put("message", principal);
+            response.put("message", authentication.getPrincipal());
         } catch (Exception e) {
             response.put("message", e.getMessage());
         }

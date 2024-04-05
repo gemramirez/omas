@@ -15,7 +15,13 @@ public class TimetableService {
     @Autowired
     private TimetableDao timetableDao;
     
+    // Get the list of reserved seats based on a specific time range
     public List<TimetableModel> getAllReservationPerTimeslot(Map<String, String> parameters) {
         return timetableDao.getAllReservationPerTimeslot(parameters);
+    }
+
+    // Get the list of reserved seat based on its start date
+    public List<TimetableModel> getAllReservationStartDate(String parameter) {
+        return timetableDao.getAllReservationStartDate(parameter);
     }
 }

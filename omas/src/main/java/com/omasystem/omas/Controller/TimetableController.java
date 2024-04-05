@@ -23,11 +23,18 @@ public class TimetableController {
         this.timetableService = timetableService;
     }
 
+    // Get the list of reserved seats based on a specific time range
     @GetMapping("/reservations")
     public List<TimetableModel> getAllReservationPerTimeslot(@RequestParam("start_date") String startDate, @RequestParam("end_date") String endDate) {
         
         Map<String, String> params = Map.of("start_date", startDate, "end_date", endDate);
 
         return timetableService.getAllReservationPerTimeslot(params);
+    }
+
+    // Get the list of reserved seats based on its start date
+    @GetMapping("/reservations/start")
+    public List<TimetableModel> getAllReservationStartDate(@RequestParam("start_date") String startDate) {
+        return timetableService.getAllReservationStartDate(startDate);
     }
 }
