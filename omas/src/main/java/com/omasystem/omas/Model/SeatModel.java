@@ -18,6 +18,8 @@ public class SeatModel {
         @Enumerated(EnumType.STRING)
         private SeatStatus seat_status;  
         private int del_flag;
+        private int dept_id;
+        private int proj_id;
         private String reg_id;
         private Timestamp reg_date;
         private String update_id;

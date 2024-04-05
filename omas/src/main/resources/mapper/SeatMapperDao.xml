@@ -13,25 +13,28 @@
         <!-- Map seat_status column to SeatStatus enum -->
         <result property="seat_status" column="seat_status" javaType="com.omasystem.omas.Model.Enum.SeatStatus" />
         <result property="del_flag" column="del_flag"/>
-        <result property="reg_id" column="reg_id"/>
+        <result property="dept_id" column="dept_id"/>
+        <result property="proj_id" column="proj_id"/>
+         <result property="reg_id" column="reg_id"/>
         <result property="reg_date" column="reg_date"/>
         <result property="update_id" column="update_id"/>
         <result property="update_date" column="update_date"/>
     </resultMap>
 
     <select id="getAllSeats" resultMap="seatResultMap">
-        SELECT seat_id, seat_status, del_flag, reg_id, reg_date, update_id, update_date
+        SELECT seat_id, seat_status, del_flag, dept_id, proj_id, reg_id, reg_date, update_id, update_date
         FROM tbl_seat
         WHERE del_flag = 0
         ORDER BY seat_id ASC;
     </select>
 
     <select id="getSeatStatus" resultMap="seatResultMap">
-        SELECT seat_id, seat_status, del_flag, reg_id, reg_date, update_id, update_date
+        SELECT seat_id, seat_status, del_flag, dept_id, proj_id,  reg_id, reg_date, update_id, update_date
          FROM tbl_seat
         WHERE seat_status = #{seat_status}
 
     </select>
+
 
     <!-- <select id="getAllOccupiedSeats" resultMap="seatResultMap">
         SELECT seat_id, seat_status, del_flag, reg_id, reg_date, update_id, update_date
