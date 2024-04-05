@@ -26,4 +26,18 @@
         ORDER BY seat_id ASC;
     </select>
 
+    <select id="getSeatStatus" resultMap="seatResultMap">
+        SELECT seat_id, seat_status, del_flag, reg_id, reg_date, update_id, update_date
+         FROM tbl_seat
+        WHERE seat_status = #{seat_status}
+
+    </select>
+
+    <!-- <select id="getAllOccupiedSeats" resultMap="seatResultMap">
+        SELECT seat_id, seat_status, del_flag, reg_id, reg_date, update_id, update_date
+         FROM tbl_seat
+        WHERE seat_status = #{seat_status}
+
+    </select> -->
+
 </mapper>

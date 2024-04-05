@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper for ReservationDao   -->
+<mapper namespace="com.omasystem.omas.Dao.AssociatesDao">
+
+    <!-- TOTAL ASSOCIATES -->
+    <select id="getTotalAssociates" parameterType="java.lang.Long">
+        SELECT COUNT(*) AS emp_id FROM tbl_user;
+    </select>
+
+    <!-- TOTAL OF ASSOCIATES WITH ASSIGNED SEATS -->
+    <select id="getTotalAssignedSeats" parameterType="java.lang.Long">
+        SELECT COUNT(*) AS resrvation_id FROM tbl_reservation;
+    </select>
+
+    <!-- TOTAL OF ASSOCIATES WITH ASSIGNED SEATS -->
+    <select id="getTotalUnassignedSeats" resultType="java.lang.Integer">
+       SELECT (SELECT COUNT(*) FROM tbl_user) - (SELECT COUNT(DISTINCT emp_id) FROM tbl_reservation) AS unassigned_seat;
+    </select>
+
+
+
+</mapper>

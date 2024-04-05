@@ -14,6 +14,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/seat")
@@ -26,4 +28,15 @@ public class SeatController {
     public ResponseEntity<List<SeatModel>> getAllSeats() {
         return seatService.getAllSeats();
     }
+
+    @GetMapping("/available")
+    public List<SeatModel> getAvailableSeat(){
+        return seatService.getAvailableSeat();
+    }
+
+    @GetMapping("/occupied")
+    public List<SeatModel> getOccupiedSeat(){
+        return seatService.getOccupiedSeat();
+    }
+    
 }
