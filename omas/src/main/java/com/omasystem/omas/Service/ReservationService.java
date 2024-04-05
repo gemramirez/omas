@@ -81,8 +81,6 @@ public class ReservationService {
 
         ReservationInputBodyModel bodyContainer = new ReservationInputBodyModel();
 
-        System.out.println(authentication.getName());
-
         UserModel principal = userDao.getPrincipal(authentication.getName());
 
         UserProjectModel currentProjectOfUser = userProjectDao
