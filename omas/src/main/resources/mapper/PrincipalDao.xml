@@ -16,7 +16,6 @@
             pi.mname AS middle_name,
             pi.lname AS last_name,
             position.position_name AS position_name,
-            project.proj_name AS project_name,
             account.img_src AS img_src
         FROM
             tbl_user AS account
@@ -29,9 +28,6 @@
         INNER JOIN 
             tbl_user_project AS up
             ON account.emp_id = up.emp_id
-        LEFT JOIN
-            tbl_project_mst AS project
-            ON up.proj_id = project.proj_id
         WHERE
             account.username = #{session};
     </select>    
