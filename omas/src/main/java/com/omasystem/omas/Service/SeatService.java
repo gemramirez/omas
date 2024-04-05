@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.omasystem.omas.Dao.SeatDao;
 import com.omasystem.omas.Model.SeatModel;
+import com.omasystem.omas.Model.Enum.SeatStatus;
 
 
 
@@ -30,5 +31,16 @@ public class SeatService {
             e.printStackTrace(); // Log the exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }};
+
+    
+        public List<SeatModel> getAvailableSeat() {
+            // Assuming SeatStatus.AVAILABLE represents the available seats
+            return seatDao.getSeatStatus(SeatStatus.available);
+        }
+
+        public List<SeatModel> getOccupiedSeat() {
+            // Assuming SeatStatus.AVAILABLE represents the available seats
+            return seatDao.getSeatStatus(SeatStatus.occupied);
+        }
 
 }
