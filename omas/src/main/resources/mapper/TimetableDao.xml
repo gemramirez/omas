@@ -4,18 +4,44 @@
 
 <!--Mapper for Time Table-->
 <mapper namespace="com.omasystem.omas.Dao.TimetableDao">
-    <!-- Get All Reservations Per TimeSlot -->
+    <!-- Get All Reservations Per Timeslot -->
     <select id="getAllReservationPerTimeslot" parameterType="java.util.Map" resultType="com.omasystem.omas.Model.TimetableModel">
-        SELECT
-            reservation.reservation_id AS reservation_id,
-            reservation.seat_id AS seat_id,
-            reservation.start_date AS start_date,
-            reservation.end_date AS end_date,
-            reservation.note AS note
-        FROM
-            tbl_reservation AS reservation
-        WHERE 
-            reservation.start_date &lt;= #{end_date} 
-            AND reservation.end_date &gt;= #{start_date}
+    SELECT
+        reservation.reservation_id AS reservation_id,
+        reservation.seat_id AS seat_id,
+        reservation.start_date AS start_date,
+        reservation.end_date AS end_date,
+        reservation.note AS note,
+        project.proj_name AS project_name,
+        client.client_name AS client_name
+    FROM
+        tbl_reservation AS reservation
+    LEFT JOIN
+        tbl_project_mst AS project ON reservation.proj_id = project.proj_id
+    LEFT JOIN 
+        tbl_clients_mst AS client ON project.client_id = client.client_id
+    WHERE 
+        reservation.start_date BETWEEN #{start_date} AND #{end_date}
+        OR reservation.end_date BETWEEN #{start_date} AND #{end_date}
     </select>
+    <!-- Get a reservation based on the start date -->
+    <select id="getAllReservationStartDate" parameterType="java.util.Map" resultType="com.omasystem.omas.Model.TimetableModel">
+    SELECT
+        reservation.reservation_id AS reservation_id,
+        reservation.seat_id AS seat_id,
+        reservation.start_date AS start_date,
+        reservation.end_date AS end_date,
+        reservation.note AS note,
+        project.proj_name AS project_name,
+        client.client_name AS client_name
+    FROM
+        tbl_reservation AS reservation
+    LEFT JOIN
+        tbl_project_mst AS project ON reservation.proj_id = project.proj_id
+    LEFT JOIN 
+        tbl_clients_mst AS client ON project.client_id = client.client_id
+        WHERE 
+            reservation.start_date = #{start_date}
+    </select>
+
 </mapper>

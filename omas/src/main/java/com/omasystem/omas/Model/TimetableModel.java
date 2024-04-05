@@ -13,5 +13,5 @@ public class TimetableModel {
     private Long reservation_id;
     private int seat_id;
     private Timestamp start_date, end_date;
-    private String note, first_name, middle_name, last_name, client_sn;
+    private String note, project_name, client_name;
 }
