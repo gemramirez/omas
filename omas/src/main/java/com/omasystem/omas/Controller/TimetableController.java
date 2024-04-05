@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.omasystem.omas.Model.SeatModel;
 import com.omasystem.omas.Model.TimetableModel;
 import com.omasystem.omas.Service.TimetableService;
 
@@ -23,8 +24,14 @@ public class TimetableController {
         this.timetableService = timetableService;
     }
 
-    // Get the list of reserved seats based on a specific time range
+    // Get the list of all reservations
     @GetMapping("/reservations")
+    public List<TimetableModel> getAllReservations() {
+        return timetableService.getAllReservations();
+    }
+
+    // Get the list of reserved seats based on a specific time range
+    @GetMapping("/reservation")
     public List<TimetableModel> getAllReservationPerTimeslot(@RequestParam("start_date") String startDate, @RequestParam("end_date") String endDate) {
         
         Map<String, String> params = Map.of("start_date", startDate, "end_date", endDate);
@@ -37,4 +44,11 @@ public class TimetableController {
     public List<TimetableModel> getAllReservationStartDate(@RequestParam("start_date") String startDate) {
         return timetableService.getAllReservationStartDate(startDate);
     }
+
+    // Get all seats based on a reservation 
+    @GetMapping("/reservations/seat")
+    public List<SeatModel> getAllSeatsInReservation(@RequestParam Long reservationId) {
+        return timetableService.getAllSeatsInReservation(reservationId);
+    }
+        
 }
