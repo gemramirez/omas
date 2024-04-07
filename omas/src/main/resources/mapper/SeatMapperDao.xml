@@ -40,4 +40,23 @@
 
     </select> -->
 
+    <!--Get total seats by project-->
+    <select id="getTotalSeatsByProject" resultMap="seatsByProjectResultMap">
+        SELECT
+            COUNT(reservation.seat_id) AS totalSeatsReserved
+        FROM
+            tbl_reservation AS reservation
+        INNER JOIN
+            tbl_project_mst AS proj ON reservation.proj_id = proj.proj_id
+        WHERE
+            proj.proj_id = #{projId}
+        GROUP BY
+            proj.proj_id
+    </select>
+    <resultMap id="seatsByProjectResultMap" type="Integer">
+        <result property="totalSeatsReserved" column="totalSeatsReserved"/>
+    </resultMap>
+
+
+
 </mapper>

@@ -22,8 +22,15 @@ public class SeatModel {
         private Timestamp reg_date;
         private String update_id;
         private Timestamp update_date;
+        private int totalSeatsReserved;
     
-      
+        public int getTotalSeatsReserved() {
+                return totalSeatsReserved;
+            }
+        
+            public void setTotalSeatsReserved(int totalSeatsReserved) {
+                this.totalSeatsReserved = totalSeatsReserved;
+            }      
     
     
     

@@ -43,4 +43,13 @@ public class SeatService {
             return seatDao.getSeatStatus(SeatStatus.occupied);
         }
 
+        public ResponseEntity<List<SeatModel>> getTotalSeatsByProject(Long projectId) {
+            try {
+                List<SeatModel> seatsByProject = seatDao.getTotalSeatsByProject(projectId);
+                return ResponseEntity.ok(seatsByProject);
+            } catch (Exception e) {
+                e.printStackTrace(); // Log the exception
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
 }
