@@ -40,7 +40,7 @@ public class TimetableController {
     }
 
     // Get the list of reserved seats based on its start date
-    @GetMapping("/reservations/start")
+    @GetMapping("/reservation/start")
     public List<TimetableModel> getAllReservationStartDate(@RequestParam("start_date") String startDate) {
         return timetableService.getAllReservationStartDate(startDate);
     }

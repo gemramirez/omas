@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("/seat")
+@RequestMapping("/api/seats") /*changed from /seat to /api/seats */
 public class SeatController {
 
     @Autowired
     private SeatService seatService;
 
-    @GetMapping("/getAll")
+    @GetMapping("/all") /*changed from getAll to all */
     public ResponseEntity<List<SeatModel>> getAllSeats() {
         return seatService.getAllSeats();
     }
@@ -40,7 +40,7 @@ public class SeatController {
         return seatService.getOccupiedSeat();
     }
 
-    @GetMapping("/totalByProject")
+    @GetMapping("/project") /*changed from totalByProject to project */
     public ResponseEntity<List<SeatModel>> getTotalSeatsByProject(@RequestParam Long projectId) {
         return seatService.getTotalSeatsByProject(projectId);
     }

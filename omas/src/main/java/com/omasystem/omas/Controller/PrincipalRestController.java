@@ -18,7 +18,7 @@ public class PrincipalRestController {
     @Autowired
     private PrincipalService principalService;
 
-    @GetMapping()
+    @GetMapping("/info")
     public Map<String, Object> getPrincipalInfo()
     {
         return principalService.getPrincipalInfo();
