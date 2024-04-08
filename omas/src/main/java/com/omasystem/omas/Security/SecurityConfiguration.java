@@ -19,8 +19,8 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final String[] Whitelist = {
-        "/api/auth/Register",
-        "/api/auth/Authenticate"
+        "/api/auth/register",
+        "/api/auth/authenticate"
     };
 
     @Bean
