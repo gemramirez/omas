@@ -43,6 +43,11 @@ public class SeatService {
             return seatDao.getSeatStatus(SeatStatus.occupied);
         }
 
+        public List<SeatModel> getRepairingSeat() {
+            // Assuming SeatStatus.REPAIRING represents the seats that are under repair
+            return seatDao.getSeatStatus(SeatStatus.repairing);
+        }
+
         public ResponseEntity<List<SeatModel>> getTotalSeatsByProject(Long projectId) {
             try {
                 List<SeatModel> seatsByProject = seatDao.getTotalSeatsByProject(projectId);

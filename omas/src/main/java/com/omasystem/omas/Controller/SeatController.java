@@ -40,6 +40,11 @@ public class SeatController {
         return seatService.getOccupiedSeat();
     }
 
+    @GetMapping("/repairing")
+    public List<SeatModel> getRepairingSeat(){
+        return seatService.getRepairingSeat();
+    }
+
     @GetMapping("/project") /*changed from totalByProject to project */
     public ResponseEntity<List<SeatModel>> getTotalSeatsByProject(@RequestParam Long projectId) {
         return seatService.getTotalSeatsByProject(projectId);
