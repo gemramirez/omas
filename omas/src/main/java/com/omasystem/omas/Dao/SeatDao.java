@@ -16,5 +16,7 @@ public interface SeatDao {
     List<SeatModel> getSeatStatus(@Param("seat_status") SeatStatus seatStatus);
 
     List<SeatModel> getTotalSeatsByProject(Long projectId);
+    SeatModel getSeat(int seat_id); 
+
 
 }

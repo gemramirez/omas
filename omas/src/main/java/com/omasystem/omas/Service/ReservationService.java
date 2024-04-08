@@ -13,11 +13,13 @@ import org.springframework.stereotype.Service;
 
 import com.omasystem.omas.Dao.PrincipalDao;
 import com.omasystem.omas.Dao.ReservationDao;
+import com.omasystem.omas.Dao.SeatDao;
 import com.omasystem.omas.Dao.UserDao;
 import com.omasystem.omas.Dao.UserProjectDao;
 import com.omasystem.omas.Model.PrincipalModel;
 import com.omasystem.omas.Model.ReservationInputBodyModel;
 import com.omasystem.omas.Model.ReservationPerSeatModel;
+import com.omasystem.omas.Model.SeatModel;
 import com.omasystem.omas.Model.UserModel;
 import com.omasystem.omas.Model.UserProjectModel;
 import com.omasystem.omas.Repo.tbl_userRepo;
@@ -33,6 +35,9 @@ public class ReservationService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private SeatDao seatDao;
 
     Map<String, Object> response = new HashMap<String, Object>();
 
@@ -76,7 +81,7 @@ public class ReservationService {
     }
 
     // saves reservation to database.
-    public Map<String, Object> insertReservation(Long seat_id, ReservationInputBodyModel body) {
+    public Map<String, Object> insertReservation(int seat_id, ReservationInputBodyModel body) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         ReservationInputBodyModel bodyContainer = new ReservationInputBodyModel();
@@ -86,6 +91,7 @@ public class ReservationService {
         UserProjectModel currentProjectOfUser = userProjectDao
                 .getProjectInvolvedOfUser(String.valueOf(principal.getEmp_id()));
 
+        SeatModel seat = seatDao.getSeat(seat_id);
         if(currentProjectOfUser != null)
         {
             bodyContainer.setProj_id(currentProjectOfUser.getProj_id());
@@ -97,7 +103,7 @@ public class ReservationService {
 
         try {
             bodyContainer.setEmp_id(String.valueOf(principal.getEmp_id()));
-            bodyContainer.setSeat_id(Integer.parseInt(seat_id.toString()));
+            bodyContainer.setSeat_id(seat.getSeat_id());
             bodyContainer.setStart_date(body.getStart_date());
             bodyContainer.setEnd_date(body.getEnd_date());
             bodyContainer.setNote(body.getNote());

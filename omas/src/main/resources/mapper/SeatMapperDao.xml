@@ -61,5 +61,12 @@
     </resultMap>
 
 
-
+<select id="getSeat" resultType="com.omasystem.omas.Model.SeatModel">
+        SELECT 
+            * 
+        FROM 
+            tbl_seat
+        WHERE
+            seat_id = #{seat_id} 
+    </select>
 </mapper>
