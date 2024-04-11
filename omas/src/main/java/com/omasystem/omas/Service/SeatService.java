@@ -19,6 +19,7 @@ public class SeatService {
     @Autowired
         SeatDao seatDao;
         
+     //<------------- GET ALL SEATS ---------->
     public ResponseEntity<List<SeatModel>> getAllSeats(){ 
         try {
             List<SeatModel> seats = seatDao.getAllSeats();
@@ -32,22 +33,25 @@ public class SeatService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }};
 
-    
+        // GET ALL AVAILABLE SEATS
         public List<SeatModel> getAvailableSeat() {
             // Assuming SeatStatus.AVAILABLE represents the available seats
             return seatDao.getSeatStatus(SeatStatus.available);
         }
 
+        //GET ALL OCCUPIED SEATS
         public List<SeatModel> getOccupiedSeat() {
-            // Assuming SeatStatus.AVAILABLE represents the available seats
+            // Assuming SeatStatus.OCCUPIED represents the available seats
             return seatDao.getSeatStatus(SeatStatus.occupied);
         }
 
+        //GET ALL REPAIRING SEAT
         public List<SeatModel> getRepairingSeat() {
             // Assuming SeatStatus.REPAIRING represents the seats that are under repair
             return seatDao.getSeatStatus(SeatStatus.repairing);
         }
 
+        //GET ALL SEATS BY PROJECT
         public ResponseEntity<List<SeatModel>> getTotalSeatsByProject(Long projectId) {
             try {
                 List<SeatModel> seatsByProject = seatDao.getTotalSeatsByProject(projectId);

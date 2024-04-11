@@ -8,22 +8,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.omasystem.omas.Dao.PrincipalDao;
 import com.omasystem.omas.Dao.ReservationDao;
 import com.omasystem.omas.Dao.SeatDao;
 import com.omasystem.omas.Dao.UserDao;
 import com.omasystem.omas.Dao.UserProjectDao;
-import com.omasystem.omas.Model.PrincipalModel;
 import com.omasystem.omas.Model.ReservationInputBodyModel;
-import com.omasystem.omas.Model.ReservationModel;
 import com.omasystem.omas.Model.ReservationPerSeatModel;
-import com.omasystem.omas.Model.SeatModel;
 import com.omasystem.omas.Model.UserModel;
 import com.omasystem.omas.Model.UserProjectModel;
-import com.omasystem.omas.Repo.tbl_userRepo;
+import com.omasystem.omas.Model.Enum.SeatStatus;
 
 @Service
 public class ReservationService {
@@ -46,7 +41,8 @@ public class ReservationService {
     // security.
     public static final String EMP_ID = "101";
 
-    // retrieves all reservation per seat and data are converted to string.
+        // retrieves all reservation per seat and data are converted to string. 
+
     public Map<String, Object> getAllReservationPerSeat(Long seat_id) {
 
         try {
@@ -82,7 +78,8 @@ public class ReservationService {
     }
 
     // saves reservation to database.
-    public Map<String, Object> insertReservation(int seat_id, ReservationInputBodyModel body) {
+
+    public Map<String, Object>insertReservation(Long seat_id, ReservationInputBodyModel body) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         ReservationInputBodyModel bodyContainer = new ReservationInputBodyModel();
@@ -92,7 +89,6 @@ public class ReservationService {
         UserProjectModel currentProjectOfUser = userProjectDao
                 .getProjectInvolvedOfUser(String.valueOf(principal.getEmp_id()));
 
-        SeatModel seat = seatDao.getSeat(seat_id);
         if(currentProjectOfUser != null)
         {
             bodyContainer.setProj_id(currentProjectOfUser.getProj_id());
@@ -104,12 +100,15 @@ public class ReservationService {
 
         try {
             bodyContainer.setEmp_id(String.valueOf(principal.getEmp_id()));
-            bodyContainer.setSeat_id(seat.getSeat_id());
+            bodyContainer.setSeat_id(Integer.parseInt(seat_id.toString()));
             bodyContainer.setStart_date(body.getStart_date());
             bodyContainer.setEnd_date(body.getEnd_date());
             bodyContainer.setNote(body.getNote());
 
             reservationDao.insertReservation(bodyContainer);
+
+            // Update seat status to "occupied"
+            seatDao.updateSeatStatus(seat_id, SeatStatus.occupied);
 
             response.put("message", "Reservation Added Successfully");
         } catch (Exception e) {
@@ -118,43 +117,43 @@ public class ReservationService {
         return response;
     }
 
-    public List<ReservationModel> getReservationByEmpId(String emp_id) {
-        return reservationDao.findByEmpId(emp_id);
-    }
 
-    public ReservationModel getReservationById(Long reservationId) {
-        return reservationDao.findById(reservationId);
-    }
-
-    public Map<String, Object> updateReservation(Long reservationId, ReservationInputBodyModel body) {
-        Map<String, Object> response = new HashMap<>();
+//Update Seat Under Restoration
+    public Map<String, Object> underRepairing(Long seat_id, ReservationInputBodyModel body) {
+        Map<String, Object> response = new HashMap<>(); // Initialize response map
     
         try {
-            // Retrieve the reservation to update
-            ReservationModel reservation = reservationDao.findById(reservationId);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserModel principal = userDao.getPrincipal(authentication.getName());
     
-            if (reservation == null) {
-                response.put("message", "Reservation not found");
-                return response;
-            }
+            ReservationInputBodyModel bodyContainer = new ReservationInputBodyModel();
     
-            // Check if the reservation belongs to the current user (optional step)
-            // You may have to retrieve the currently logged-in user's emp_id here
+            // Set project ID
+            UserProjectModel currentProjectOfUser = userProjectDao.getProjectInvolvedOfUser(String.valueOf(principal.getEmp_id()));
+            bodyContainer.setProj_id(currentProjectOfUser != null ? currentProjectOfUser.getProj_id() : 1);
     
-            // Update reservation details
-            reservation.setStart_date(body.getStart_date());
-            reservation.setEnd_date(body.getEnd_date());
-            reservation.setNote(body.getNote());
+            // Populate reservation details
+            bodyContainer.setEmp_id(String.valueOf(principal.getEmp_id()));
+            bodyContainer.setSeat_id(Integer.parseInt(seat_id.toString()));
+            bodyContainer.setStart_date(body.getStart_date());
+            bodyContainer.setEnd_date(body.getEnd_date());
+            bodyContainer.setNote(body.getNote());
     
-            // Call the DAO to update the reservation
-            reservationDao.updateReservation(reservation);
+            // Insert reservation
+            reservationDao.insertReservation(bodyContainer);
     
-            response.put("message", "Reservation updated successfully");
+            // Update seat status to "repairing"
+            seatDao.updateSeatStatus(seat_id, SeatStatus.repairing);
+    
+            response.put("message", "Under Restoration");
         } catch (Exception e) {
             response.put("message", e.getMessage());
         }
+    
         return response;
     }
     
-    
 }
+
+    
+    

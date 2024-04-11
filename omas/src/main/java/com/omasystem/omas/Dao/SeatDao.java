@@ -12,11 +12,9 @@ import com.omasystem.omas.Model.Enum.SeatStatus;
 public interface SeatDao {
 
     List<SeatModel>getAllSeats();
-
     List<SeatModel> getSeatStatus(@Param("seat_status") SeatStatus seatStatus);
-
     List<SeatModel> getTotalSeatsByProject(Long projectId);
     SeatModel getSeat(int seat_id); 
-
+    void updateSeatStatus(@Param("seatId") Long seatd, @Param("status") SeatStatus status);
 
 }

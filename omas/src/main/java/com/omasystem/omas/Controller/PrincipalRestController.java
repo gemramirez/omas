@@ -47,45 +47,45 @@ public class PrincipalRestController {
         return principalService.getPrincipalInfo();
     }
 
-    /*not yet tested*/
-    @GetMapping("/reservation")
-    public List<ReservationModel> getPrincipalReservation(String session) {
-        UserModel currentUser = userDao.getPrincipal(session);
+    // /*not yet tested*/
+    // @GetMapping("/reservation")
+    // public List<ReservationModel> getPrincipalReservation(String session) {
+    //     UserModel currentUser = userDao.getPrincipal(session);
         
-        if (currentUser == null) {
-            return null;
-        }
+    //     if (currentUser == null) {
+    //         return null;
+    //     }
     
-        String empId = currentUser.getEmp_id();
+    //     String empId = currentUser.getEmp_id();
     
-        return reservationService.getReservationByEmpId(empId);
-    }
+    //     return reservationService.getReservationByEmpId(empId);
+    // }
 
-    /*not yet tested */
-    @PutMapping("/reservation/{reservationId}")
-    public Map<String, Object> updateReservation(@PathVariable Long reservationId, @RequestBody ReservationInputBodyModel body) {
-        // Retrieve the current user based on the session
-        UserModel currentUser = userDao.getPrincipal(getCurrentSession());
+    // /*not yet tested */
+    // @PutMapping("/reservation/{reservationId}")
+    // public Map<String, Object> updateReservation(@PathVariable Long reservationId, @RequestBody ReservationInputBodyModel body) {
+    //     // Retrieve the current user based on the session
+    //     UserModel currentUser = userDao.getPrincipal(getCurrentSession());
     
-        if (currentUser == null) {
-            return null;
-        }
+    //     if (currentUser == null) {
+    //         return null;
+    //     }
     
-        // Retrieve the reservation to be updated
-        ReservationModel reservation = reservationService.getReservationById(reservationId);
+    //     // Retrieve the reservation to be updated
+    //     ReservationModel reservation = reservationService.getReservationById(reservationId);
     
-        if (reservation == null) {
-            return null; // Handle case where reservation is not found
-        }
+    //     if (reservation == null) {
+    //         return null; // Handle case where reservation is not found
+    //     }
     
-        // Check if the reservation belongs to the current user
-        if (!reservation.getEmp_id().equals(currentUser.getEmp_id())) {
-            return null; // Handle case where the reservation doesn't belong to the current user
-        }
+    //     // Check if the reservation belongs to the current user
+    //     if (!reservation.getEmp_id().equals(currentUser.getEmp_id())) {
+    //         return null; // Handle case where the reservation doesn't belong to the current user
+    //     }
     
-        // Update the reservation
-        return reservationService.updateReservation(reservationId, body);
-    }
+    //     // Update the reservation
+    //     return reservationService.updateReservation(reservationId, body);
+    // }
     
     
 }
