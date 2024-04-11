@@ -166,49 +166,42 @@ public class ReservationService {
 
 //Update Seat Under Restoration
     public Map<String, Object> underRepairing(Long seat_id, ReservationInputBodyModel body) {
-        Map<String, Object> response = new HashMap<>(); // Initialize response map
-    
-        try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            UserModel principal = userDao.getPrincipal(authentication.getName());
     
             ReservationInputBodyModel bodyContainer = new ReservationInputBodyModel();
     
-
-            // Retrieve the currently logged-in user's emp_id
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            UserModel currentUser = userDao.getPrincipal(authentication.getName());
-            String loggedInEmpId = currentUser.getEmp_id();
+            UserModel principal = userDao.getPrincipal(authentication.getName());
     
-            // Check if the reservation belongs to the current user
-            if (!reservation.getEmp_id().equals(loggedInEmpId)) {
-                response.put("message", "You are not authorized to update this reservation");
-                return response;
+            UserProjectModel currentProjectOfUser = userProjectDao
+                    .getProjectInvolvedOfUser(String.valueOf(principal.getEmp_id()));
+    
+            if(currentProjectOfUser != null)
+            {
+                bodyContainer.setProj_id(currentProjectOfUser.getProj_id());
             }
-
+            else
+            {
+                bodyContainer.setProj_id(1);
+            }
     
-            // Populate reservation details
-            bodyContainer.setEmp_id(String.valueOf(principal.getEmp_id()));
-            bodyContainer.setSeat_id(Integer.parseInt(seat_id.toString()));
-            bodyContainer.setStart_date(body.getStart_date());
-            bodyContainer.setEnd_date(body.getEnd_date());
-            bodyContainer.setNote(body.getNote());
+            try {
+                bodyContainer.setEmp_id(String.valueOf(principal.getEmp_id()));
+                bodyContainer.setSeat_id(Integer.parseInt(seat_id.toString()));
+                bodyContainer.setStart_date(body.getStart_date());
+                bodyContainer.setEnd_date(body.getEnd_date());
+                bodyContainer.setNote(body.getNote());
     
-            // Insert reservation
-            reservationDao.insertReservation(bodyContainer);
+                reservationDao.insertReservation(bodyContainer);
     
-            // Update seat status to "repairing"
-            seatDao.updateSeatStatus(seat_id, SeatStatus.repairing);
+                // Update seat status to "occupied"
+                seatDao.updateSeatStatus(seat_id, SeatStatus.repairing);
     
-            response.put("message", "Under Restoration");
-        } catch (Exception e) {
-            response.put("message", e.getMessage());
+                response.put("message", "Seat is under restoration");
+            } catch (Exception e) {
+                response.put("message", e.getMessage());
+            }
+            return response;
         }
     
-        return response;
-    }
 
 }
-
-    
-    
