@@ -14,6 +14,6 @@ public interface ReservationDao {
     void insertReservation(ReservationInputBodyModel body);
     List<ReservationModel> findByEmpId(String emp_id);
     ReservationModel findById(Long reservationId);
-    ReservationModel updateReservation(ReservationModel reservation);
+    void updateReservation(ReservationModel reservation);
 
 }

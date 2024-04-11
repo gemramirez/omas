@@ -132,8 +132,16 @@ public class ReservationService {
                 return response;
             }
     
-            // Check if the reservation belongs to the current user (optional step)
-            // You may have to retrieve the currently logged-in user's emp_id here
+            // Retrieve the currently logged-in user's emp_id
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserModel currentUser = userDao.getPrincipal(authentication.getName());
+            String loggedInEmpId = currentUser.getEmp_id();
+    
+            // Check if the reservation belongs to the current user
+            if (!reservation.getEmp_id().equals(loggedInEmpId)) {
+                response.put("message", "You are not authorized to update this reservation");
+                return response;
+            }
     
             // Update reservation details
             reservation.setStart_date(body.getStart_date());
@@ -149,6 +157,7 @@ public class ReservationService {
         }
         return response;
     }
+    
     
     
 }

@@ -1,9 +1,12 @@
 package com.omasystem.omas.Controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +33,7 @@ public class PrincipalRestController {
     @Autowired
     private PrincipalService principalService;
 
-    @Autowired 
+    @Autowired
     private ReservationService reservationService;
 
     @Autowired
@@ -42,8 +45,7 @@ public class PrincipalRestController {
     }
 
     @GetMapping("/info")
-    public Map<String, Object> getPrincipalInfo()
-    {
+    public Map<String, Object> getPrincipalInfo() {
         return principalService.getPrincipalInfo();
     }
 
@@ -51,47 +53,57 @@ public class PrincipalRestController {
     public List<ReservationModel> getPrincipalReservation() {
         String session = getCurrentSession(); // Get the current session
         if (session == null || session.isEmpty()) {
-            // Handle the case where session is empty or null, such as returning an error response
+            // Handle the case where session is empty or null, such as returning an error
+            // response
             return null;
         }
-    
+
         UserModel currentUser = userDao.getPrincipal(session);
-        
+
         if (currentUser == null) {
             return null;
         }
-    
+
         String empId = currentUser.getEmp_id();
-    
+
         return reservationService.getReservationByEmpId(empId);
     }
-    
 
-    /*not yet tested */
     @PutMapping("/reservation/{reservationId}")
-    public Map<String, Object> updateReservation(@PathVariable Long reservationId, @RequestBody ReservationInputBodyModel body) {
+    public ResponseEntity<Map<String, Object>> updateReservation(@PathVariable Long reservationId,
+            @RequestBody ReservationInputBodyModel body) {
         // Retrieve the current user based on the session
         UserModel currentUser = userDao.getPrincipal(getCurrentSession());
-    
+
         if (currentUser == null) {
-            return null;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Collections.singletonMap("error", "User not authenticated"));
         }
-    
+
         // Retrieve the reservation to be updated
         ReservationModel reservation = reservationService.getReservationById(reservationId);
-    
+
         if (reservation == null) {
-            return null; // Handle case where reservation is not found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Collections.singletonMap("error", "Reservation not found"));
         }
-    
+
         // Check if the reservation belongs to the current user
         if (!reservation.getEmp_id().equals(currentUser.getEmp_id())) {
-            return null; // Handle case where the reservation doesn't belong to the current user
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(Collections.singletonMap("error", "You are not authorized to update this reservation"));
         }
-    
+
         // Update the reservation
-        return reservationService.updateReservation(reservationId, body);
+        Map<String, Object> updateResult = reservationService.updateReservation(reservationId, body);
+
+        if (updateResult.containsKey("error")) {
+            // If there's an error during the update operation
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(updateResult);
+        }
+
+        // Return success response
+        return ResponseEntity.ok(updateResult);
     }
-    
-    
+
 }

@@ -5,7 +5,7 @@
 <!-- Mapper for ReservationDao   -->
 <mapper namespace="com.omasystem.omas.Dao.ReservationDao">
 
-    <!-- getAllReservationPerSeat --> 
+    <!-- getAllReservationPerSeat -->
 
     <select id="getAllReservationPerSeat" parameterType="java.lang.Long">
         SELECT 
@@ -38,7 +38,7 @@
 		WHERE reservation.seat_id = #{seat_id};
     </select>
 
-    <!-- insertReservation --> 
+    <!-- insertReservation -->
 
     <insert id="insertReservation" parameterType="com.omasystem.omas.Model.ReservationInputBodyModel">
         INSERT INTO tbl_reservation
@@ -53,5 +53,19 @@
         FROM tbl_reservation
         WHERE emp_id = #{emp_id}
     </select>
+
+    <!--findById statement-->
+    <select id="findById" parameterType="java.lang.Long" resultType="com.omasystem.omas.Model.ReservationModel">
+        SELECT * FROM tbl_reservation WHERE reservation_id = #{reservationId}
+    </select>
+
+    <!-- updateReservation statement -->
+    <update id="updateReservation" parameterType="com.omasystem.omas.Model.ReservationModel">
+        UPDATE tbl_reservation
+        SET start_date = #{start_date},
+            end_date = #{end_date},
+            note = #{note}
+        WHERE reservation_id = #{reservation_id}
+    </update>
 
 </mapper>
