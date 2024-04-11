@@ -29,25 +29,26 @@ public class SeatController {
         return seatService.getAllSeats();
     }
 
-    // getAllAvaialable seat api
+    /* getAllAvaialable seat api */
     @GetMapping("/available")
     public List<SeatModel> getAvailableSeat(){
         return seatService.getAvailableSeat();
     }
     
-    // getAllOccupied seat api
+    /* getAllOccupied seat api*/
     @GetMapping("/occupied")
     public List<SeatModel> getOccupiedSeat(){
         return seatService.getOccupiedSeat();
     }
 
-    // getAllUnderRestoration seat api
+    /* getAllUnderRestoration seat api */
     @GetMapping("/repairing")
     public List<SeatModel> getRepairingSeat(){
         return seatService.getRepairingSeat();
     }
 
-    @GetMapping("/project") /*changed from totalByProject to project */
+     /*get seats by project */
+    @GetMapping("/project")
     public ResponseEntity<List<SeatModel>> getTotalSeatsByProject(@RequestParam Long projectId) {
         return seatService.getTotalSeatsByProject(projectId);
     }
