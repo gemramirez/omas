@@ -29,16 +29,19 @@ public class SeatController {
         return seatService.getAllSeats();
     }
 
+    // getAllAvaialable seat api
     @GetMapping("/available")
     public List<SeatModel> getAvailableSeat(){
         return seatService.getAvailableSeat();
     }
-
+    
+    // getAllOccupied seat api
     @GetMapping("/occupied")
     public List<SeatModel> getOccupiedSeat(){
         return seatService.getOccupiedSeat();
     }
 
+    // getAllUnderRestoration seat api
     @GetMapping("/repairing")
     public List<SeatModel> getRepairingSeat(){
         return seatService.getRepairingSeat();
