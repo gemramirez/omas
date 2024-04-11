@@ -206,4 +206,23 @@ public class ReservationService {
         public List<ReservationModel> getAllReservation() {
             return reservationDao.getAllReservation();
         }
+
+        // public List<ReservationPerSeatModel>getAllReservationWithUserInfo(){
+        //     return reservationDao.getAllReservationWithUserInfo();
+        // }
+   
+        public Map<String, Object> getAllReservationWithUserInfo() {
+            Map<String, Object> response = new HashMap<>();
+            try {
+                List<ReservationPerSeatModel> reservationPerSeats = reservationDao.getAllReservationWithUserInfo();
+                if (reservationPerSeats.isEmpty()) {
+                    response.put("message", "No reservations found");
+                } else {
+                    response.put("reservations", reservationPerSeats);
+                }
+            } catch (Exception e) {
+                response.put("error", e.getMessage());
+            }
+            return response;
+        }
 }

@@ -79,4 +79,35 @@
     WHERE del_flag = 0
     ORDER BY reservation_id ASC;
        </select>
+<select id="getAllReservationWithUserInfo" resultType="com.omasystem.omas.Model.ReservationPerSeatModel">
+    SELECT 
+        reservation.reservation_id AS reservation_id,
+        reservation.seat_id AS seat_id,
+        reservation.start_date AS start_date,
+        reservation.end_date AS end_date,
+        position.position_sh_name AS position_sn,
+        pi.fname AS first_name,
+        pi.mname AS middle_name,
+        pi.lname AS last_name,
+        client.client_sh_name AS client_sn
+    FROM 
+        tbl_reservation AS reservation
+    INNER JOIN
+        tbl_user AS user
+        ON reservation.emp_id = user.emp_id
+    LEFT JOIN 
+        tbl_position_mst AS position
+        ON user.position_id = position.position_id
+    LEFT JOIN 
+        tbl_personal_info AS pi
+        ON reservation.emp_id = pi.emp_id
+    INNER JOIN
+        tbl_project_mst AS project
+        ON reservation.proj_id = project.proj_id
+    LEFT JOIN 
+        tbl_clients_mst AS client
+        ON project.client_id = client.client_id
+    ORDER BY reservation_id ASC;
+</select>
+
 </mapper>
