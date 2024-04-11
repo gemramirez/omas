@@ -15,6 +15,5 @@ public class UserModel {
     private int dept_id;
     private int section_id;
     private String status_code;
-    private int role_id;
     private String img_src;
 }

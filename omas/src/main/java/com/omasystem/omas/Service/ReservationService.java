@@ -128,9 +128,18 @@ public class ReservationService {
     
             ReservationInputBodyModel bodyContainer = new ReservationInputBodyModel();
     
-            // Set project ID
-            UserProjectModel currentProjectOfUser = userProjectDao.getProjectInvolvedOfUser(String.valueOf(principal.getEmp_id()));
-            bodyContainer.setProj_id(currentProjectOfUser != null ? currentProjectOfUser.getProj_id() : 1);
+
+            // Retrieve the currently logged-in user's emp_id
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserModel currentUser = userDao.getPrincipal(authentication.getName());
+            String loggedInEmpId = currentUser.getEmp_id();
+    
+            // Check if the reservation belongs to the current user
+            if (!reservation.getEmp_id().equals(loggedInEmpId)) {
+                response.put("message", "You are not authorized to update this reservation");
+                return response;
+            }
+
     
             // Populate reservation details
             bodyContainer.setEmp_id(String.valueOf(principal.getEmp_id()));
@@ -152,7 +161,7 @@ public class ReservationService {
     
         return response;
     }
-    
+
 }
 
     
