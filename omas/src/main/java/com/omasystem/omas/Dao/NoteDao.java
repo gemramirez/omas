@@ -8,5 +8,6 @@ import com.omasystem.omas.Model.NoteModel;
 
 @Mapper
 public interface NoteDao {
+    //get all list of notes with user's seat id and info
     List<NoteModel> getAllNote(); 
 }
