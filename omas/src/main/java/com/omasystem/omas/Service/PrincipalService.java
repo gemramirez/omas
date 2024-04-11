@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.omasystem.omas.Dao.PrincipalDao;
-import com.omasystem.omas.Model.PrincipalModel;
 
 @Service
 public class PrincipalService {
