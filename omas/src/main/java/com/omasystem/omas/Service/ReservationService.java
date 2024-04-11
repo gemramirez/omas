@@ -15,6 +15,7 @@ import com.omasystem.omas.Dao.SeatDao;
 import com.omasystem.omas.Dao.UserDao;
 import com.omasystem.omas.Dao.UserProjectDao;
 import com.omasystem.omas.Model.ReservationInputBodyModel;
+import com.omasystem.omas.Model.ReservationModel;
 import com.omasystem.omas.Model.ReservationPerSeatModel;
 import com.omasystem.omas.Model.UserModel;
 import com.omasystem.omas.Model.UserProjectModel;
@@ -77,6 +78,51 @@ public class ReservationService {
         return response;
     }
 
+    public List<ReservationModel> getReservationByEmpId(String emp_id) {
+        return reservationDao.findByEmpId(emp_id);
+    }
+
+    public ReservationModel getReservationById(Long reservationId) {
+        return reservationDao.findById(reservationId);
+    }
+    
+    public Map<String, Object> updateReservation(Long reservationId, ReservationInputBodyModel body) {
+        Map<String, Object> response = new HashMap<>();
+    
+        try {
+            // Retrieve the reservation to update
+            ReservationModel reservation = reservationDao.findById(reservationId);
+    
+            if (reservation == null) {
+                response.put("message", "Reservation not found");
+                return response;
+            }
+    
+            // Retrieve the currently logged-in user's emp_id
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserModel currentUser = userDao.getPrincipal(authentication.getName());
+            String loggedInEmpId = currentUser.getEmp_id();
+    
+            // Check if the reservation belongs to the current user
+            if (!reservation.getEmp_id().equals(loggedInEmpId)) {
+                response.put("message", "You are not authorized to update this reservation");
+                return response;
+            }
+    
+            // Update reservation details
+            reservation.setStart_date(body.getStart_date());
+            reservation.setEnd_date(body.getEnd_date());
+            reservation.setNote(body.getNote());
+    
+            // Call the DAO to update the reservation
+            reservationDao.updateReservation(reservation);
+    
+            response.put("message", "Reservation updated successfully");
+        } catch (Exception e) {
+            response.put("message", e.getMessage());
+        }
+        return response;
+    }
     // saves reservation to database.
 
     public Map<String, Object>insertReservation(Long seat_id, ReservationInputBodyModel body) {
