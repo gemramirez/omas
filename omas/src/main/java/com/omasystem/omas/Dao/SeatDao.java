@@ -11,10 +11,16 @@ import com.omasystem.omas.Model.Enum.SeatStatus;
 @Mapper
 public interface SeatDao {
 
+    //get all seat using seat id
     List<SeatModel>getAllSeats();
+    // get all seat by calling seat status(enum)
     List<SeatModel> getSeatStatus(@Param("seat_status") SeatStatus seatStatus);
+    //get all seats by callinf projectId
     List<SeatModel> getTotalSeatsByProject(Long projectId);
-    SeatModel getSeat(int seat_id); 
+    //add seat reservation
     void updateSeatStatus(@Param("seatId") Long seatd, @Param("status") SeatStatus status);
+     
+    
+    // SeatModel getSeat(int seat_id); 
 
 }

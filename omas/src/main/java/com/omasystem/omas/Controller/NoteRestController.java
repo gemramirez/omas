@@ -19,6 +19,7 @@ public class NoteRestController {
     @Autowired
     private NoteService noteService;
 
+    //get all notes
     @GetMapping("/all")
     public Map<String, Object> getAllNotes()
     {
