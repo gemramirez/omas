@@ -47,4 +47,11 @@
             (#{emp_id}, #{seat_id}, #{proj_id}, #{start_date}, #{end_date}, #{note});
     </insert>
 
+    <!-- findByEmpId statement -->
+    <select id="findByEmpId" parameterType="java.lang.String" resultType="com.omasystem.omas.Model.ReservationModel">
+        SELECT *
+        FROM tbl_reservation
+        WHERE emp_id = #{emp_id}
+    </select>
+
 </mapper>

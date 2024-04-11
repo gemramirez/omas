@@ -47,9 +47,14 @@ public class PrincipalRestController {
         return principalService.getPrincipalInfo();
     }
 
-    /*not yet tested*/
     @GetMapping("/reservation")
-    public List<ReservationModel> getPrincipalReservation(String session) {
+    public List<ReservationModel> getPrincipalReservation() {
+        String session = getCurrentSession(); // Get the current session
+        if (session == null || session.isEmpty()) {
+            // Handle the case where session is empty or null, such as returning an error response
+            return null;
+        }
+    
         UserModel currentUser = userDao.getPrincipal(session);
         
         if (currentUser == null) {
@@ -60,6 +65,7 @@ public class PrincipalRestController {
     
         return reservationService.getReservationByEmpId(empId);
     }
+    
 
     /*not yet tested */
     @PutMapping("/reservation/{reservationId}")
