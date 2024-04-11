@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.omasystem.omas.Model.ReservationInputBodyModel;
 import com.omasystem.omas.Model.ReservationModel;
+import com.omasystem.omas.Model.ReservationPerSeatModel;
 import com.omasystem.omas.Service.ReservationService;
 
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,13 @@ public class ReservationRestController {
     public List<ReservationModel> getAllReservation()  {
         return reservationService.getAllReservation();
     }
+
+    @GetMapping("/allReservationWithUserInfo")
+    public Map<String, Object> getAllReservationsWithUserInfo() {
+        return reservationService.getAllReservationWithUserInfo();
+    }
+
+    
     
 
 

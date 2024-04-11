@@ -23,4 +23,9 @@ public interface ReservationDao {
 
     List<ReservationModel>getAllReservation();
 
+    // List<ReservationPerSeatModel>getAllReservationWithUserInfo(Long seat_id);
+
+
+        List<ReservationPerSeatModel> getAllReservationWithUserInfo();
+    
 }
