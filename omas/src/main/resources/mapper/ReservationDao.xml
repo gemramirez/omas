@@ -5,6 +5,9 @@
 <!-- Mapper for ReservationDao   -->
 <mapper namespace="com.omasystem.omas.Dao.ReservationDao">
 
+
+
+
     <!-- getAllReservationPerSeat -->
 
     <select id="getAllReservationPerSeat" parameterType="java.lang.Long">
@@ -68,4 +71,12 @@
         WHERE reservation_id = #{reservation_id}
     </update>
 
+<!-- get all reservation -->
+
+    <select id="getAllReservation" parameterType="java.lang.Long" resultType="com.omasystem.omas.Model.ReservationModel">
+    SELECT *
+    FROM tbl_reservation
+    WHERE del_flag = 0
+    ORDER BY reservation_id ASC;
+       </select>
 </mapper>

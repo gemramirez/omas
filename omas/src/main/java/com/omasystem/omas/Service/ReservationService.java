@@ -164,7 +164,7 @@ public class ReservationService {
     }
 
 
-//Update Seat Under Restoration
+//Seat Under Restoration
     public Map<String, Object> underRepairing(Long seat_id, ReservationInputBodyModel body) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     
@@ -203,5 +203,7 @@ public class ReservationService {
             return response;
         }
     
-
+        public List<ReservationModel> getAllReservation() {
+            return reservationDao.getAllReservation();
+        }
 }
