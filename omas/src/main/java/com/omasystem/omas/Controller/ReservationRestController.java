@@ -28,21 +28,21 @@ public class ReservationRestController {
     @Autowired
     private ReservationService reservationService;
 
-    //get reservation thru calling seat_id
+    /*get reservation thru calling seat_id*/
     @GetMapping("/{seat_id}")
     public Map<String, Object> getAllReservationPerSeat(@PathVariable Long seat_id)
     {
         return reservationService.getAllReservationPerSeat(seat_id);
     }
 
-    //adding reservation to desire seat id
+    /*adding reservation to desire seat id*/
     @PostMapping("/{seat_id}/add")
     public Map<String, Object> insertReservation(@PathVariable Long seat_id, @RequestBody ReservationInputBodyModel body)
     {
         return reservationService.insertReservation(seat_id, body);
     }
 
-    // update seat's status into restoration
+    /*update seat's status into restoration*/
     @PutMapping("/{seat_id}/repair-seat")
     public Map<String, Object> underRepairing( @PathVariable Long seat_id,
     @RequestBody ReservationInputBodyModel body)

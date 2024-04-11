@@ -44,6 +44,7 @@ public class PrincipalRestController {
         return authentication.getName();
     }
 
+    /*Gets the logged in user's info */
     @GetMapping("/info")
     public Map<String, Object> getPrincipalInfo() {
         return principalService.getPrincipalInfo();
@@ -69,6 +70,7 @@ public class PrincipalRestController {
         return reservationService.getReservationByEmpId(empId);
     }
 
+    /*Gets the logged in user's reservation by reservation id */
     @PutMapping("/reservation/{reservationId}")
     public ResponseEntity<Map<String, Object>> updateReservation(@PathVariable Long reservationId,
             @RequestBody ReservationInputBodyModel body) {

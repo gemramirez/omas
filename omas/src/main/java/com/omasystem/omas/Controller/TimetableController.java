@@ -24,13 +24,13 @@ public class TimetableController {
         this.timetableService = timetableService;
     }
 
-    // Get the list of all reservations
+    /* Get the list of all reservations */
     @GetMapping("/reservations")
     public List<TimetableModel> getAllReservations() {
         return timetableService.getAllReservations();
     }
 
-    // Get the list of reserved seats based on a specific time range
+    /* Get the list of reserved seats based on a specific time range */
     @GetMapping("/reservation")
     public List<TimetableModel> getAllReservationPerTimeslot(@RequestParam("start_date") String startDate, @RequestParam("end_date") String endDate) {
         
@@ -39,14 +39,14 @@ public class TimetableController {
         return timetableService.getAllReservationPerTimeslot(params);
     }
 
-    // Get the list of reserved seats based on its start date and seat id
+    /* Get the list of reserved seats based on its start date and seat id */
     @GetMapping("/reservation/start")
     public List<TimetableModel> getAllReservationStartDate(@RequestParam("startDate") String startDate, @RequestParam("seatId") int seatId) {
 
         return timetableService.getAllReservationStartDate(startDate, seatId);
     }
 
-    // Get all seats based on a reservation 
+    /* Get all seats based on a reservation */
     @GetMapping("/reservations/seat")
     public List<SeatModel> getAllSeatsInReservation(@RequestParam Long reservationId) {
         return timetableService.getAllSeatsInReservation(reservationId);

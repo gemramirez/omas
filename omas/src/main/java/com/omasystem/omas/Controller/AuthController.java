@@ -22,6 +22,7 @@ public class AuthController {
     
     private final AuthenticationService service;
 
+    /*Lets a user register an account */
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register (
         @RequestBody RegisterRequest request
@@ -29,6 +30,7 @@ public class AuthController {
         return ResponseEntity.ok(service.register(request));
     }
 
+    /*Lets a user log in and authenticate */
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate (
         @RequestBody AuthenticationRequest request
