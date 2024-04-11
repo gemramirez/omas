@@ -63,7 +63,8 @@
     LEFT JOIN 
         tbl_clients_mst AS client ON project.client_id = client.client_id
         WHERE 
-            reservation.start_date = #{start_date}
+            reservation.start_date = #{startDate}
+            AND reservation.seat_id = #{seatId}
     </select>
     <!-- Get a reservation based on the start date -->
 

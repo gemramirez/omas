@@ -27,9 +27,9 @@ public class TimetableService {
         return timetableDao.getAllReservationPerTimeslot(parameters);
     }
 
-    // Get the list of reserved seat based on its start date
-    public List<TimetableModel> getAllReservationStartDate(String parameter) {
-        return timetableDao.getAllReservationStartDate(parameter);
+    // Get the list of reserved seat based on its start date & seat id
+    public List<TimetableModel> getAllReservationStartDate(String startDate, int seatId) {
+        return timetableDao.getAllReservationStartDate(startDate, seatId);
     }
 
     // Get all seats based on a reservation 

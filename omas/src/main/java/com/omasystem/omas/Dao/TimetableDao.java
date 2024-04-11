@@ -17,8 +17,8 @@ public interface TimetableDao {
     // Get the list of reserved seats based on a specific time range
     List<TimetableModel> getAllReservationPerTimeslot(Map<String, String> parameters);
 
-    // Get the list of reserved seats based on its start date
-    List<TimetableModel> getAllReservationStartDate(String parameter);
+    // Get the list of reserved seats based on its start date and seat id
+    List<TimetableModel> getAllReservationStartDate(String startDate, int seatId);
 
     // Get all seats based on a reservation 
     List<SeatModel> getAllSeatsInReservation(Long parameter);
