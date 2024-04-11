@@ -16,6 +16,8 @@ public class PrincipalService {
     private PrincipalDao principalDao;
 
     Map<String, Object> response = new HashMap<String, Object>();
+    
+    //GET ALL PRINCIPAL INFO
 
     public Map<String, Object> getPrincipalInfo()
     {

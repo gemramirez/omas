@@ -6,5 +6,6 @@ import com.omasystem.omas.Model.PrincipalModel;
 
 @Mapper
 public interface PrincipalDao {
+    //get currently logged in user 
     PrincipalModel getPrincipal(String session);
 }

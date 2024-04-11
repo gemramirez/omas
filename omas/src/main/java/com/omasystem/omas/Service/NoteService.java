@@ -16,6 +16,7 @@ public class NoteService {
     @Autowired
     private NoteDao noteDao;
 
+    //GET ALL NOTES
     Map<String, Object> response = new HashMap<String, Object>();
     public Map<String, Object> getAllNotes()
     {
