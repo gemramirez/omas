@@ -56,7 +56,7 @@ public class ReservationRestController {
     }
 
     @GetMapping("/allReservationWithUserInfo")
-    public Map<String, Object> getAllReservationsWithUserInfo() {
+    public List<ReservationPerSeatModel> getAllReservationWithUserInfo() {
         return reservationService.getAllReservationWithUserInfo();
     }
 

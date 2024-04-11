@@ -79,12 +79,14 @@
     WHERE del_flag = 0
     ORDER BY reservation_id ASC;
        </select>
+
 <select id="getAllReservationWithUserInfo" resultType="com.omasystem.omas.Model.ReservationPerSeatModel">
     SELECT 
         reservation.reservation_id AS reservation_id,
         reservation.seat_id AS seat_id,
         reservation.start_date AS start_date,
         reservation.end_date AS end_date,
+        reservation.emp_id AS emp_id,
         position.position_sh_name AS position_sn,
         pi.fname AS first_name,
         pi.mname AS middle_name,
@@ -107,7 +109,9 @@
     LEFT JOIN 
         tbl_clients_mst AS client
         ON project.client_id = client.client_id
+    <!-- WHERE del_flag = 0 -->
     ORDER BY reservation_id ASC;
 </select>
+
 
 </mapper>
