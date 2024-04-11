@@ -21,4 +21,6 @@ public interface ReservationDao {
     //update seatreservation
     void updateReservation(ReservationModel reservation);
 
+    List<ReservationModel>getAllReservation();
+
 }

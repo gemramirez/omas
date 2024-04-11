@@ -1,5 +1,6 @@
 package com.omasystem.omas.Controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.omasystem.omas.Model.ReservationInputBodyModel;
+import com.omasystem.omas.Model.ReservationModel;
 import com.omasystem.omas.Service.ReservationService;
 
 import lombok.RequiredArgsConstructor;
@@ -46,6 +48,12 @@ public class ReservationRestController {
    {
         return reservationService.underRepairing(seat_id, body);
     }
+
+    @GetMapping("/all")
+    public List<ReservationModel> getAllReservation()  {
+        return reservationService.getAllReservation();
+    }
+    
 
 
 }
