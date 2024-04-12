@@ -34,13 +34,13 @@ public class TimetableService {
 
                 for (TimetableModel reservation : reservations) {
                     Map<String, Object> reservationMap = new HashMap<>();
-                    reservationMap.put("reservation_id", reservation.getReservation_id());
-                    reservationMap.put("seat_id", reservation.getSeat_id());
-                    reservationMap.put("reservation_start_date", reservation.getStart_date());
-                    reservationMap.put("reservation_end_date", reservation.getEnd_date());
-                    reservationMap.put("project", reservation.getProject_name());
-                    reservationMap.put("client", reservation.getClient_name());
-                    reservationMap.put("note", reservation.getNote());
+                    reservationMap.put("Reservation ID", reservation.getReservation_id());
+                    reservationMap.put("Seat ID", reservation.getSeat_id());
+                    reservationMap.put("Reservation Start Date", reservation.getStart_date());
+                    reservationMap.put("Reservation End Date", reservation.getEnd_date());
+                    reservationMap.put("Project", reservation.getProject_name());
+                    reservationMap.put("Client", reservation.getClient_name());
+                    reservationMap.put("Note", reservation.getNote());
 
                     stringList.add(reservationMap);
                 }
@@ -64,13 +64,13 @@ public class TimetableService {
                 List<Map<String, Object>> stringList = new ArrayList<>();
                 for (TimetableModel slotReservation : slotReservations) {
                     Map<String, Object> slotReservationMap = new HashMap<>();
-                    slotReservationMap.put("reservation_id", slotReservation.getReservation_id());
-                    slotReservationMap.put("seat_id", slotReservation.getSeat_id());
-                    slotReservationMap.put("reservation_start_date", slotReservation.getStart_date());
-                    slotReservationMap.put("reservation_end_date", slotReservation.getEnd_date());
-                    slotReservationMap.put("project", slotReservation.getProject_name());
-                    slotReservationMap.put("client", slotReservation.getClient_name());
-                    slotReservationMap.put("note", slotReservation.getNote());
+                    slotReservationMap.put("Reservation ID", slotReservation.getReservation_id());
+                    slotReservationMap.put("Seat ID", slotReservation.getSeat_id());
+                    slotReservationMap.put("Reservation Start Date", slotReservation.getStart_date());
+                    slotReservationMap.put("Reservation End Date", slotReservation.getEnd_date());
+                    slotReservationMap.put("Project", slotReservation.getProject_name());
+                    slotReservationMap.put("Client", slotReservation.getClient_name());
+                    slotReservationMap.put("Note", slotReservation.getNote());
                     stringList.add(slotReservationMap);
                 }
                 timeRangeResponse.put("reservations", stringList);
@@ -96,13 +96,13 @@ public class TimetableService {
     
                 for (TimetableModel startReservation : startReservations) {
                     Map<String, Object> startReservationMap = new HashMap<>();
-                    startReservationMap.put("reservation_id", startReservation.getReservation_id());
-                    startReservationMap.put("seat_id", startReservation.getSeat_id());
-                    startReservationMap.put("reservation_start_date", startReservation.getStart_date());
-                    startReservationMap.put("reservation_end_date", startReservation.getEnd_date());
-                    startReservationMap.put("project", startReservation.getProject_name());
-                    startReservationMap.put("client", startReservation.getClient_name());
-                    startReservationMap.put("note", startReservation.getNote());
+                    startReservationMap.put("Reservation ID", startReservation.getReservation_id());
+                    startReservationMap.put("Seat ID", startReservation.getSeat_id());
+                    startReservationMap.put("Reservation Start Date", startReservation.getStart_date());
+                    startReservationMap.put("Reservation End Date", startReservation.getEnd_date());
+                    startReservationMap.put("Project", startReservation.getProject_name());
+                    startReservationMap.put("Client", startReservation.getClient_name());
+                    startReservationMap.put("Note", startReservation.getNote());
     
                     stringList.add(startReservationMap);
                 }
@@ -133,13 +133,13 @@ public class TimetableService {
         
                     for (SeatModel seatReservation: seatReservations) {
                         Map<String, Object> startReservationMap = new HashMap<>();
-                        startReservationMap.put("seat_id", seatReservation.getSeat_id());
-                        startReservationMap.put("seat_status", seatReservation.getSeat_status());
-                        startReservationMap.put("department_id", seatReservation.getDept_id());
-                        startReservationMap.put("project_id", seatReservation.getProj_id());
-                        startReservationMap.put("registration_date", seatReservation.getReg_date());
-                        startReservationMap.put("registration_id", seatReservation.getReg_id());
-                        startReservationMap.put("total_seats_reserved", seatReservation.getTotalSeatsReserved());
+                        startReservationMap.put("Seat ID", seatReservation.getSeat_id());
+                        startReservationMap.put("Seat Status", seatReservation.getSeat_status());
+                        startReservationMap.put("Department ID", seatReservation.getDept_id());
+                        startReservationMap.put("Project ID", seatReservation.getProj_id());
+                        startReservationMap.put("Registration Date", seatReservation.getReg_date());
+                        startReservationMap.put("Registration ID", seatReservation.getReg_id());
+                        startReservationMap.put("Total Seats Reserved", seatReservation.getTotalSeatsReserved());
                         stringList.add(startReservationMap);
                     }
         
