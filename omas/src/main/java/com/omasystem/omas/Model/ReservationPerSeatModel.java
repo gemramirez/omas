@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReservationPerSeatModel {
     private Long reservation_id;
-    private String position_sn, first_name, middle_name, last_name, client_sn;
+    private String position_sn, first_name, middle_name, last_name, client_sn, emp_id;
     private int seat_id;
     private Timestamp start_date, end_date;
 }
