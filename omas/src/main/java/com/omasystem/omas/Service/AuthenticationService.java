@@ -25,9 +25,19 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    //Logic for emp_id
+    private String generateEmpId() {
+        // Get the count of existing entries
+        long existingEntriesCount = tbl_userRepository.count();
+        // Increment the count by 100 and convert it to a string
+        return String.valueOf(existingEntriesCount + 100);
+    }
+
     public AuthenticationResponse register(RegisterRequest request) {
+        String empId = generateEmpId();
+
         var user = tbl_user.builder()
-                .emp_id(request.getEmp_id())
+                .emp_id(empId)
                 .username(request.getUsername())
                 .position_id(1)
                 .section_id(1)
@@ -39,22 +49,20 @@ public class AuthenticationService {
                 // .role(Role.USER)
                 .build();
         
-        if (user != null) 
-        {
-                tbl_userRepository.save(user);
+        if (user != null) {
+            tbl_userRepository.save(user);
         }
 
         var personal_info = tbl_personal_info.builder()
-                .emp_id(request.getEmp_id())
+                .emp_id(empId)
                 .fname(request.getFirstname())
                 .lname(request.getLastname())
                 .mname(request.getMiddlename())
                 .email(request.getEmail())
                 .build();
 
-        if(personal_info != null)
-        {
-                tbl_personal_infoRepo.save(personal_info);
+        if(personal_info != null) {
+            tbl_personal_infoRepo.save(personal_info);
         }
 
         var jwtToken = jwtService.generateToken(user);

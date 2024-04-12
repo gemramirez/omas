@@ -10,6 +10,7 @@ import com.omasystem.omas.Service.SeatService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,8 +49,8 @@ public class SeatController {
     }
 
      /*get seats by project */
-    @GetMapping("/project")
-    public ResponseEntity<List<SeatModel>> getTotalSeatsByProject(@RequestParam Long projectId) {
-        return seatService.getTotalSeatsByProject(projectId);
-    }
+     @GetMapping("/project")
+     public ResponseEntity<Map<String, Object>> getTotalSeatsByProject(@RequestParam Long projectId) {
+         return seatService.getTotalSeatsByProject(projectId);
+     }
 }
