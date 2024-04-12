@@ -1,6 +1,8 @@
 package com.omasystem.omas.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,16 +13,14 @@ import com.omasystem.omas.Dao.SeatDao;
 import com.omasystem.omas.Model.SeatModel;
 import com.omasystem.omas.Model.Enum.SeatStatus;
 
-
-
 @Service
 public class SeatService {
-    
+
     @Autowired
-        SeatDao seatDao;
-        
-     //<------------- GET ALL SEATS ---------->
-    public ResponseEntity<List<SeatModel>> getAllSeats(){ 
+    SeatDao seatDao;
+
+    // <------------- GET ALL SEATS ---------->
+    public ResponseEntity<List<SeatModel>> getAllSeats() {
         try {
             List<SeatModel> seats = seatDao.getAllSeats();
             if (seats != null && !seats.isEmpty()) {
@@ -31,34 +31,39 @@ public class SeatService {
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }};
-
-        // GET ALL AVAILABLE SEATS
-        public List<SeatModel> getAvailableSeat() {
-            // Assuming SeatStatus.AVAILABLE represents the available seats
-            return seatDao.getSeatStatus(SeatStatus.available);
         }
+    };
 
-        //GET ALL OCCUPIED SEATS
-        public List<SeatModel> getOccupiedSeat() {
-            // Assuming SeatStatus.OCCUPIED represents the available seats
-            return seatDao.getSeatStatus(SeatStatus.occupied);
-        }
+    // GET ALL AVAILABLE SEATS
+    public List<SeatModel> getAvailableSeat() {
+        // Assuming SeatStatus.AVAILABLE represents the available seats
+        return seatDao.getSeatStatus(SeatStatus.available);
+    }
 
-        //GET ALL REPAIRING SEAT
-        public List<SeatModel> getRepairingSeat() {
-            // Assuming SeatStatus.REPAIRING represents the seats that are under repair
-            return seatDao.getSeatStatus(SeatStatus.repairing);
-        }
+    // GET ALL OCCUPIED SEATS
+    public List<SeatModel> getOccupiedSeat() {
+        // Assuming SeatStatus.OCCUPIED represents the available seats
+        return seatDao.getSeatStatus(SeatStatus.occupied);
+    }
 
-        //GET ALL SEATS BY PROJECT
-        public ResponseEntity<List<SeatModel>> getTotalSeatsByProject(Long projectId) {
-            try {
-                List<SeatModel> seatsByProject = seatDao.getTotalSeatsByProject(projectId);
-                return ResponseEntity.ok(seatsByProject);
-            } catch (Exception e) {
-                e.printStackTrace(); // Log the exception
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
+    // GET ALL REPAIRING SEAT
+    public List<SeatModel> getRepairingSeat() {
+        // Assuming SeatStatus.REPAIRING represents the seats that are under repair
+        return seatDao.getSeatStatus(SeatStatus.repairing);
+    }
+
+    // GET ALL SEATS BY PROJECT
+    public ResponseEntity<Map<String, Object>> getTotalSeatsByProject(Long projectId) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            List<SeatModel> seatsByProject = seatDao.getTotalSeatsByProject(projectId);
+            response.put("Number of seats occupied by project", seatsByProject);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the exception
+            response.put("error", "Internal Server Error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
+    }
 }
