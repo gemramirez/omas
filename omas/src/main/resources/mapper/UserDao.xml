@@ -16,6 +16,4 @@
             username = #{session}
     </select>
 
-    <!-- GET ALL USER -->
-    
 </mapper>

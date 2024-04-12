@@ -18,9 +18,8 @@ public interface SeatDao {
     //get all seats by callinf projectId
     List<SeatModel> getTotalSeatsByProject(Long projectId);
     //add seat reservation
-    void updateSeatStatus(@Param("seatId") Long seatd, @Param("status") SeatStatus status);
+    void updateSeatStatus(@Param("seatId") Long seat_id, @Param("status") SeatStatus status);
      
-    
     // SeatModel getSeat(int seat_id); 
 
 }

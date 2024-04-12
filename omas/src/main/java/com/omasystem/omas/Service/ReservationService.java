@@ -207,10 +207,6 @@ public class ReservationService {
             return reservationDao.getAllReservation();
         }
 
-        // public List<ReservationPerSeatModel>getAllReservationWithUserInfo(){
-        //     return reservationDao.getAllReservationWithUserInfo();
-        // }
-   
         public List<ReservationPerSeatModel> getAllReservationWithUserInfo() {
             return reservationDao.getAllReservationWithUserInfo();
         }
