@@ -22,4 +22,6 @@ public interface SeatDao {
      
     // SeatModel getSeat(int seat_id); 
 
+    // List<SeatModel>getAllSeatsWithProjectName(Long proj_id);
+    List<SeatModel> getAllSeatsWithProjectName(@Param("proj_id") Long proj_id);
 }

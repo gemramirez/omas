@@ -49,6 +49,14 @@ public class ReservationRestController {
         return reservationService.underRepairing(seat_id, body);
     }
 
+    @PutMapping("/{seat_id}/Fixed")
+    public Map<String, Object> FixedSeat( @PathVariable Long seat_id,
+    @RequestBody ReservationInputBodyModel body)
+   {
+        return reservationService.FixedSeat(seat_id, body);
+    }
+
+
     @GetMapping("/all")
     public List<ReservationModel> getAllReservation()  {
         return reservationService.getAllReservation();
