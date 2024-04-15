@@ -57,6 +57,7 @@ public class PrincipalRestController {
         return principalService.getAllPrincipalUsers();
     }
 
+    /*Get the list of reservations by logged in user */
     @GetMapping("/reservation")
     public List<ReservationModel> getPrincipalReservation() {
         String session = getCurrentSession(); // Get the current session
