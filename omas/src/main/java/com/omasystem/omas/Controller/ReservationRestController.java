@@ -59,8 +59,10 @@ public class ReservationRestController {
         return reservationService.getAllReservationWithUserInfo();
     }
 
+    @PutMapping("/archive/{reservation_id}")
+    public String archiveReservation(@PathVariable("reservation_id") Long reservationId) {
+        return reservationService.ArchiveReservation(reservationId);
     
-    
-
+    }
 
 }

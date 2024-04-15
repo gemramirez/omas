@@ -113,5 +113,10 @@
     ORDER BY reservation_id ASC;
 </select>
 
+ <!-- delete reservation -->
+   <update id="ArchiveReservation" parameterType="java.lang.Long">
+        UPDATE tbl_reservation SET del_flag = 1 WHERE reservation_id = #{reservationId}
+    </update>
+
 
 </mapper>
