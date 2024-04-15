@@ -30,5 +30,29 @@
             ON account.emp_id = up.emp_id
         WHERE
             account.username = #{session};
+    </select>
+
+    <!--getAllUsers-->
+
+    <select id="getAllPrincipalUsers" resultType="com.omasystem.omas.Model.PrincipalModel">
+        SELECT 
+            account.emp_id AS emp_id,
+            account.username AS username,
+            pi.fname AS first_name,
+            pi.mname AS middle_name,
+            pi.lname AS last_name,
+            position.position_name AS position_name,
+            account.img_src AS img_src
+        FROM
+            tbl_user AS account
+        INNER JOIN 
+            tbl_personal_info AS pi
+            ON account.emp_id = pi.emp_id
+        LEFT JOIN 
+            tbl_position_mst AS position
+            ON account.position_id = position.position_id
+        INNER JOIN 
+            tbl_user_project AS up
+            ON account.emp_id = up.emp_id
     </select>    
 </mapper>

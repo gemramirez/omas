@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.omasystem.omas.Dao.UserDao;
+import com.omasystem.omas.Model.PrincipalModel;
 import com.omasystem.omas.Model.ReservationInputBodyModel;
 import com.omasystem.omas.Model.ReservationModel;
 import com.omasystem.omas.Model.UserModel;
@@ -48,6 +49,12 @@ public class PrincipalRestController {
     @GetMapping("/info")
     public Map<String, Object> getPrincipalInfo() {
         return principalService.getPrincipalInfo();
+    }
+
+    /*Gets the list of users *For admin* */
+    @GetMapping("/all")
+    public ResponseEntity<List<PrincipalModel>> getAllPrincipalUsers() {
+        return principalService.getAllPrincipalUsers();
     }
 
     @GetMapping("/reservation")
