@@ -21,6 +21,7 @@ public class SeatModel {
         private int dept_id;
         private int proj_id;
         private String reg_id;
+        private String proj_name;
         private Timestamp reg_date;
         private String update_id;
         private Timestamp update_date;
