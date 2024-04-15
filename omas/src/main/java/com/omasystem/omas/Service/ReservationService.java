@@ -210,4 +210,22 @@ public class ReservationService {
         public List<ReservationPerSeatModel> getAllReservationWithUserInfo() {
             return reservationDao.getAllReservationWithUserInfo();
         }
+
+        
+    public String ArchiveReservation(Long reservationId) {
+        ReservationModel reservation = reservationDao.findById(reservationId);
+
+        if (reservation != null) {
+            if (reservation.getDel_flag() == 1) {
+                return "Reservation with ID " + reservationId + " has already been deleted.";
+            } else {
+                // Perform logical deletion
+                reservationDao.ArchiveReservation(reservationId);
+
+                return "Reservation with ID " + reservationId + " deleted successfully.";
+            }
+        } else {
+            return "Reservation with ID " + reservationId + " cannot be found.";
+        }
+    }
     }

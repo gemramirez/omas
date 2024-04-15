@@ -27,5 +27,7 @@ public interface ReservationDao {
 
 
         List<ReservationPerSeatModel> getAllReservationWithUserInfo();
+
+    void ArchiveReservation(Long reservationId);
     
 }
