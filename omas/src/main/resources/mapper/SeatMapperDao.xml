@@ -67,4 +67,36 @@
     SET seat_status = #{status}
     WHERE seat_id = #{seatId}
 </update>
+
+
+<!-- getSeatWithProjectName -->
+
+   <select id="getAllSeatsWithProjectName" resultMap="seatResultMap">
+    SELECT 
+        seat.seat_id AS seat_id, 
+        seat.seat_status AS seat_status, 
+        seat.del_flag AS del_flag, 
+        seat.dept_id AS dept_id,
+        proj.proj_id AS proj_id, 
+        proj.proj_name AS proj_name, 
+        seat.reg_id AS reg_id, 
+        seat.reg_date AS reg_date, 
+        seat.update_id AS update_id, 
+        seat.update_date AS update_date
+    FROM 
+        tbl_seat AS seat
+    INNER JOIN
+        tbl_project_mst AS proj 
+        ON seat.proj_id = proj.proj_id
+    WHERE  
+        seat.del_flag = 0
+        AND proj.proj_id = #{proj_id}
+
+    ORDER BY
+        seat_id ASC;
+</select>
+
+
+
+
 </mapper>

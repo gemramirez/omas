@@ -202,7 +202,48 @@ public class ReservationService {
             }
             return response;
         }
+
+
+        //repaired seats into available
+        public Map<String, Object> FixedSeat(Long seat_id, ReservationInputBodyModel body) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     
+            ReservationInputBodyModel bodyContainer = new ReservationInputBodyModel();
+    
+            UserModel principal = userDao.getPrincipal(authentication.getName());
+    
+            UserProjectModel currentProjectOfUser = userProjectDao
+                    .getProjectInvolvedOfUser(String.valueOf(principal.getEmp_id()));
+    
+            if(currentProjectOfUser != null)
+            {
+                bodyContainer.setProj_id(currentProjectOfUser.getProj_id());
+            }
+            else
+            {
+                bodyContainer.setProj_id(1);
+            }
+    
+            try {
+                bodyContainer.setEmp_id(String.valueOf(principal.getEmp_id()));
+                bodyContainer.setSeat_id(Integer.parseInt(seat_id.toString()));
+                bodyContainer.setStart_date(body.getStart_date());
+                bodyContainer.setEnd_date(body.getEnd_date());
+                bodyContainer.setNote(body.getNote());
+    
+                reservationDao.insertReservation(bodyContainer);
+    
+                // Update seat status to "fixed"
+                seatDao.updateSeatStatus(seat_id, SeatStatus.available);
+    
+                response.put("message", "Seat is already fixed");
+            } catch (Exception e) {
+                response.put("message", e.getMessage());
+            }
+            return response;
+        }
+        
+        // getAllReservation
         public List<ReservationModel> getAllReservation() {
             return reservationDao.getAllReservation();
         }

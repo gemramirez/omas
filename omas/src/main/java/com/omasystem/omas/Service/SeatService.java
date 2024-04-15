@@ -1,5 +1,6 @@
 package com.omasystem.omas.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,8 @@ public class SeatService {
 
     @Autowired
     SeatDao seatDao;
+
+    Map<String, Object> response = new HashMap<String, Object>();
 
     // <------------- GET ALL SEATS ---------->
     public ResponseEntity<List<SeatModel>> getAllSeats() {
@@ -65,5 +68,11 @@ public class SeatService {
             response.put("error", "Internal Server Error");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
+    }
+
+
+    public List<SeatModel> getAllSeatsWithProjectName(Long proj_id){
+        return seatDao.getAllSeatsWithProjectName(proj_id);
+
     }
 }
