@@ -15,5 +15,5 @@ public class ReservationModel {
     private String emp_id, note, reg_id, update_id;
     private int seat_id, proj_id, del_flag;
     private Timestamp start_date, end_date, reg_date, update_date;
-    
+    private String first_name, middle_name, last_name, client_sn, position_sn;
 }
