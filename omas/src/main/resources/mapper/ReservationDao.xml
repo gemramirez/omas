@@ -50,12 +50,44 @@
             (#{emp_id}, #{seat_id}, #{proj_id}, #{start_date}, #{end_date}, #{note});
     </insert>
 
-    <!-- findByEmpId statement -->
-    <select id="findByEmpId" parameterType="java.lang.String" resultType="com.omasystem.omas.Model.ReservationModel">
-        SELECT *
-        FROM tbl_reservation
-        WHERE emp_id = #{emp_id}
-    </select>
+ <select id="findByEmpId" parameterType="java.lang.String" resultType="com.omasystem.omas.Model.ReservationModel">
+    SELECT 
+        reservation.reservation_id AS reservation_id,
+        reservation.seat_id AS seat_id,
+        reservation.start_date AS start_date,
+        reservation.end_date AS end_date,
+        reservation.note AS note,
+        reservation.emp_id AS emp_id,
+        reservation.proj_id AS proj_id,
+        reservation.update_id AS update_id,
+        reservation.update_date AS update_date,
+        reservation.reg_id AS reg_id,
+        reservation.reg_date AS reg_date,
+        position.position_sh_name AS position_sn,
+        pi.fname AS first_name,
+        pi.mname AS middle_name,
+        pi.lname AS last_name,
+        client.client_sh_name AS client_sn
+    FROM 
+        tbl_reservation AS reservation
+    LEFT JOIN
+        tbl_user AS user
+        ON reservation.emp_id = user.emp_id
+    LEFT JOIN 
+        tbl_position_mst AS position
+        ON user.position_id = position.position_id
+    LEFT JOIN 
+        tbl_personal_info AS pi
+        ON reservation.emp_id = pi.emp_id
+    INNER JOIN
+        tbl_project_mst AS project
+        ON reservation.proj_id = project.proj_id
+    LEFT JOIN 
+        tbl_clients_mst AS client
+        ON project.client_id = client.client_id
+    WHERE reservation.emp_id = #{emp_id} OR reservation.emp_id IS NULL
+</select>
+
 
     <!--findById statement-->
     <select id="findById" parameterType="java.lang.Long" resultType="com.omasystem.omas.Model.ReservationModel">
